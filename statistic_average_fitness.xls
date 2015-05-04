@@ -1,0 +1,2 @@
+Population size:100	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0	1033.4	155.86494153593358
+Population size:100	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0	1006.08	170.54076814650506

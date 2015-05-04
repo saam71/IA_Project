@@ -1,0 +1,21 @@
+
+
+Population size:100	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0
+
+Weight: 15.0 (limit: 15.0)
+Value: 1149.0
+fitness: 1149.0
+Items: 
+19	5.0	381.0
+28	5.0	386.0
+29	5.0	382.0
+
+Population size:100	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0
+
+Weight: 15.0 (limit: 15.0)
+Value: 1149.0
+fitness: 1149.0
+Items: 
+19	5.0	381.0
+28	5.0	386.0
+29	5.0	382.0
