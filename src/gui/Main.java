@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 public class Main {
 
     public Main() {
-
+	/*comm. test*/
 	MainFrame frame = new MainFrame();
 
 	// Center the window
