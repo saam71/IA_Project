@@ -12,21 +12,16 @@ import ga.PosVectorIndividual;
  * @author Eugenio
  */
 public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
-
-    private int id;
-    private int[][] forma;
-    private int altura;
-    private int largura;
     
-    public OptAreaIndividual(OptArea problem, int size, double prob1s) {
-        super(problem, size, prob1s);
+    
+    public OptAreaIndividual(OptArea problem, int size, int altura, int largura, double prob1s) {
+        super(problem, size, altura, largura, prob1s);
+        
     }
 
-//    public OptAreaIndividual(OptAreaIndividual original) {
-//        super(original);
-//        this.weight = original.weight;
-//        this.value = original.value;
-//    }
+    public OptAreaIndividual(OptAreaIndividual original) {
+        super(original);
+    }
     
     @Override
     public double computeFitness() {
@@ -40,7 +35,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 
     @Override
     public PosVectorIndividual clone() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new OptAreaIndividual(this);
     }
     
 }

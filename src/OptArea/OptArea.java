@@ -11,7 +11,6 @@ public class OptArea implements Problem <OptAreaIndividual>{
     private Peca[] pecas;
     private int altura;
     private int largura;
-    private double maximumWeight;
     private double prob1s;
     private int fitnessType = SIMPLE_FITNESS;
     private double maxVP;
@@ -23,11 +22,13 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.pecas = new Peca[pecas.length];
         System.arraycopy(pecas, 0, this.pecas, 0, pecas.length);        
         this.prob1s = prob1s;
+        this.altura = altura;
+        this.largura = largura;
         maxVP = computeMaxVP();
     }
     
     public OptAreaIndividual getNewIndividual(){
-        return new OptAreaIndividual(this, pecas.length, prob1s);
+        return new OptAreaIndividual(this, pecas.length, altura, largura, prob1s);
     }
 
     public int getNumPecas() {
@@ -38,9 +39,6 @@ public class OptArea implements Problem <OptAreaIndividual>{
         return (index >= 0 && index < pecas.length) ? pecas[index] : null;
     }
 
-    public double getMaximumWeight() {
-        return maximumWeight;
-    }
     
     public double getProb1s(){
         return prob1s;
@@ -69,7 +67,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         sb.append(pecas.length);
         sb.append("\n");        
         sb.append("Weight limit: ");
-        sb.append(maximumWeight);
+        //sb.append(maximumWeight);
         sb.append("\n");
         sb.append("Items:");
         sb.append("\nId\tWeight\tValue");
