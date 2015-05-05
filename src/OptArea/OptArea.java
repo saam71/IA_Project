@@ -103,10 +103,12 @@ public class OptArea implements Problem <OptAreaIndividual>{
             int largura = f.nextInt();
             int[][] forma = new int[altura][largura];
             
-            if(altura>largura)
+            if(altura>largura){
                 larguraTela += altura;
-            else
+            }
+            else{
                 larguraTela += largura;
+            }
             
             for(int x = 0; x < forma.length; x++){
                 for(int y = 0; y < forma.length; y++){
