@@ -10,8 +10,6 @@ package ga;
  * @author Eugenio
  */
 public abstract class PosVectorIndividual <P extends Problem> extends Individual<P, PosVectorIndividual>{
-    public static final boolean ONE = true;
-    public static final boolean ZERO = false;
 
     protected int[] genome;
     private int altura;
@@ -22,6 +20,12 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         genome = new int[size];
         this.altura = altura;
         this.largura = largura;
+        
+        for(int g = 0; g < genome.length; g+=3){
+            genome[g] = GeneticAlgorithm.random.nextInt(altura);
+            genome[g+1]= GeneticAlgorithm.random.nextInt(largura);
+            genome[g+2] = GeneticAlgorithm.random.nextInt(4);
+        }
 //        for (int g = 0; g < genome.length; g++) {
 //            genome[g] = (GeneticAlgorithm.random.nextDouble() < prob1s) ? ONE : ZERO;
 //        }
