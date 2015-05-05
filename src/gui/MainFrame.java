@@ -157,7 +157,7 @@ public class MainFrame extends JFrame implements GAListener {
             JOptionPane.showMessageDialog(this, "File format not valid", "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     public void jButtonRun_actionPerformed(ActionEvent e) {
         try {
             if (knapsack == null) {
