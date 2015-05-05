@@ -1,5 +1,7 @@
 package gui;
 
+import OptArea.OptArea;
+import OptArea.OptAreaIndividual;
 import experiments.Experiment;
 import experiments.ExperimentEvent;
 import ga.GAEvent;
@@ -33,7 +35,9 @@ public class MainFrame extends JFrame implements GAListener {
 
     private static final long serialVersionUID = 1L;
     private Knapsack knapsack;
+    private OptArea optArea;
     private GeneticAlgorithm<KnapsackIndividual, Knapsack> ga;
+    private GeneticAlgorithm<OptAreaIndividual, OptArea> gat;
     private KnapsackExperimentsFactory experimentsFactory;
     private PanelTextArea problemPanel;
     PanelTextArea bestIndividualPanel;
@@ -146,8 +150,10 @@ public class MainFrame extends JFrame implements GAListener {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File dataSet = fc.getSelectedFile();
                 
-                knapsack = Knapsack.buildKnapsack(dataSet);
-                problemPanel.textArea.setText(knapsack.toString());
+                optArea = OptArea.buildOptArea(dataSet);
+                //knapsack = Knapsack.buildKnapsack(dataSet);
+                //problemPanel.textArea.setText(knapsack.toString());
+                problemPanel.textArea.setText(optArea.toString());
                 problemPanel.textArea.setCaretPosition(0);
                 buttonRun.setEnabled(true);
             }
@@ -160,7 +166,7 @@ public class MainFrame extends JFrame implements GAListener {
     
     public void jButtonRun_actionPerformed(ActionEvent e) {
         try {
-            if (knapsack == null) {
+            if (optArea == null) {
                 JOptionPane.showMessageDialog(this, "You must first choose a problem", "Error!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -169,22 +175,22 @@ public class MainFrame extends JFrame implements GAListener {
             seriesBestIndividual.clear();
             seriesAverage.clear();
 
-            knapsack.setProb1s(Double.parseDouble(panelParameters.jTextFieldProb1s.getText()));
-            knapsack.setFitnessType(panelParameters.jComboBoxFitnessTypes.getSelectedIndex());
+            optArea.setProb1s(Double.parseDouble(panelParameters.jTextFieldProb1s.getText()));
+            optArea.setFitnessType(panelParameters.jComboBoxFitnessTypes.getSelectedIndex());
 
-            ga = new GeneticAlgorithm<KnapsackIndividual, Knapsack>(
+            gat = new GeneticAlgorithm<OptAreaIndividual, OptArea>(
                     Integer.parseInt(panelParameters.jTextFieldN.getText()),
                     Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
-                    panelParameters.getSelectionMethod(),
-                    panelParameters.getRecombinationMethod(),
-                    panelParameters.getMutationMethod(),
+                    new RouletteWheel<OptAreaIndividual, OptArea>(0),
+                    new RecombinationOneCut<OptAreaIndividual>(0),
+                    new PosMutation<OptAreaIndividual>(0),
                     new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
 
-            System.out.println("Prob of 1s: " + knapsack.getProb1s());
-            System.out.println("Fitness type: " + knapsack.getFitnessType());
-            System.out.println(ga);
+            System.out.println("Prob of 1s: " + optArea.getProb1s());
+            System.out.println("Fitness type: " + optArea.getFitnessType());
+            System.out.println(gat);
 
-            ga.addGAListener(this);
+            gat.addGAListener(this);
 
             manageButtons(false, false, true, false, false);
 
@@ -192,7 +198,7 @@ public class MainFrame extends JFrame implements GAListener {
                 public Void doInBackground() {
                     try {
 
-                        ga.run(knapsack);
+                        gat.run(optArea);
 
                     } catch (Exception e) {
                         e.printStackTrace(System.err);
@@ -212,6 +218,61 @@ public class MainFrame extends JFrame implements GAListener {
             JOptionPane.showMessageDialog(this, "Wrong parameters!", "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+//    public void jButtonRun_actionPerformed(ActionEvent e) {
+//        try {
+//            if (knapsack == null) {
+//                JOptionPane.showMessageDialog(this, "You must first choose a problem", "Error!", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            bestIndividualPanel.textArea.setText("");
+//            seriesBestIndividual.clear();
+//            seriesAverage.clear();
+//
+//            knapsack.setProb1s(Double.parseDouble(panelParameters.jTextFieldProb1s.getText()));
+//            knapsack.setFitnessType(panelParameters.jComboBoxFitnessTypes.getSelectedIndex());
+//
+//            ga = new GeneticAlgorithm<KnapsackIndividual, Knapsack>(
+//                    Integer.parseInt(panelParameters.jTextFieldN.getText()),
+//                    Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
+//                    panelParameters.getSelectionMethod(),
+//                    panelParameters.getRecombinationMethod(),
+//                    panelParameters.getMutationMethod(),
+//                    new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
+//
+//            System.out.println("Prob of 1s: " + knapsack.getProb1s());
+//            System.out.println("Fitness type: " + knapsack.getFitnessType());
+//            System.out.println(ga);
+//
+//            ga.addGAListener(this);
+//
+//            manageButtons(false, false, true, false, false);
+//
+//            worker = new SwingWorker<Void, Void>() {
+//                public Void doInBackground() {
+//                    try {
+//
+//                        ga.run(knapsack);
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace(System.err);
+//                    }
+//                    return null;
+//                }
+//
+//                @Override
+//                public void done() {
+//                    manageButtons(true, true, false, true, experimentsFactory != null);
+//                }
+//            };
+//
+//            worker.execute();
+//
+//        } catch (NumberFormatException e1) {
+//            JOptionPane.showMessageDialog(this, "Wrong parameters!", "Error!", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 
     public void generationEnded(GAEvent e) {
         GeneticAlgorithm<KnapsackIndividual, Knapsack> source = e.getSource();

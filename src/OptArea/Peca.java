@@ -26,4 +26,14 @@ public class Peca {
     public String toString() {
         return "\n" + id + "\t" + altura + "\t" + largura + "\t" + forma;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 }

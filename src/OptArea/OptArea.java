@@ -65,14 +65,14 @@ public class OptArea implements Problem <OptAreaIndividual>{
         StringBuilder sb = new StringBuilder();
         sb.append("# of pieces: ");
         sb.append(pecas.length);
-        sb.append("\n");        
-        sb.append("Weight limit: ");
-        //sb.append(maximumWeight);
         sb.append("\n");
-        sb.append("Items:");
-        sb.append("\nId\tWeight\tValue");
+        sb.append("largura tela:");
+        sb.append(largura);
+        sb.append("altura tela:");
+        sb.append(altura);
+        sb.append("\nId");
         for (Peca peca : pecas) {
-            sb.append(peca);
+            sb.append(peca.getId());
         }
         return sb.toString();
     }
@@ -109,7 +109,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
             }
             
             for(int x = 0; x < forma.length; x++){
-                for(int y = 0; y < forma.length; y++){
+                for(int y = 0; y < forma[0].length; y++){
                     forma[x][y] = f.nextInt();
                 }
             }

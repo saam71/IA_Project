@@ -16,6 +16,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     
     public OptAreaIndividual(OptArea problem, int size, int altura, int largura, double prob1s) {
         super(problem, size, altura, largura, prob1s);
+        for(int p = 0; p< genome.length; p++){
+            System.out.println("genoma: " + genome[p]);
+        }
+                System.out.println("\n");
+
         
     }
 
@@ -38,4 +43,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         return new OptAreaIndividual(this);
     }
     
+    
+    public String ToString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("genoma: " + genome);
+        sb.append("\n");
+        return sb.toString();
+    } 
 }
