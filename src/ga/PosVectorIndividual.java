@@ -13,11 +13,15 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
     public static final boolean ONE = true;
     public static final boolean ZERO = false;
 
-    protected boolean[] genome;
+    protected int[] genome;
+    private int altura;
+    private int largura;
     
-    public PosVectorIndividual(P problem, int size, double prob1s) {
+    public PosVectorIndividual(P problem, int size, int altura, int largura, double prob1s) {
         super(problem);
-        genome = new boolean[size];
+        genome = new int[size];
+        this.altura = altura;
+        this.largura = largura;
 //        for (int g = 0; g < genome.length; g++) {
 //            genome[g] = (GeneticAlgorithm.random.nextDouble() < prob1s) ? ONE : ZERO;
 //        }
@@ -25,7 +29,7 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
     
     public PosVectorIndividual(PosVectorIndividual<P> original) {
         super(original);
-        this.genome = new boolean[original.genome.length];
+        this.genome = new int[original.genome.length];
         System.arraycopy(original.genome, 0, genome, 0, genome.length);
     }
     
@@ -33,16 +37,16 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         return genome.length;
     }
     
-    public boolean getGene(int g) {
+    public int getGene(int g) {
         return genome[g];
     }
     
-    public void setGene(int g, boolean alel) {
+    public void setGene(int g, int alel) {
         genome[g] = alel;
     }
 
-    public void swapGenes(BitVectorIndividual other, int g) {
-        boolean aux = genome[g];
+    public void swapGenes(PosVectorIndividual other, int g) {
+        int aux = genome[g];
         genome[g] = other.genome[g];
         other.genome[g] = aux;
     }
