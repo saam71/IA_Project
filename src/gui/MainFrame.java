@@ -58,7 +58,7 @@ public class MainFrame extends JFrame implements GAListener {
 
     private void jbInit() throws Exception {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Solving Knapsack using genetic algorithms");
+        this.setTitle("Solving area optimization using genetic algorithms");
 
         //North Left Panel
         JPanel panelNorthLeft = new JPanel(new BorderLayout());
@@ -145,6 +145,7 @@ public class MainFrame extends JFrame implements GAListener {
         try {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File dataSet = fc.getSelectedFile();
+                
                 knapsack = Knapsack.buildKnapsack(dataSet);
                 problemPanel.textArea.setText(knapsack.toString());
                 problemPanel.textArea.setCaretPosition(0);

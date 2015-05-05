@@ -13,11 +13,20 @@ import ga.PosVectorIndividual;
  */
 public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 
+    private int id;
+    private int[][] forma;
+    private int altura;
+    private int largura;
+    
     public OptAreaIndividual(OptArea problem, int size, double prob1s) {
         super(problem, size, prob1s);
     }
 
-    
+//    public OptAreaIndividual(OptAreaIndividual original) {
+//        super(original);
+//        this.weight = original.weight;
+//        this.value = original.value;
+//    }
     
     @Override
     public double computeFitness() {
