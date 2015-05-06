@@ -25,6 +25,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.altura = altura;
         this.largura = largura;
         maxVP = computeMaxVP();
+        System.out.println("largura " + largura + " altura " + altura );
     }
     
     public OptAreaIndividual getNewIndividual(){

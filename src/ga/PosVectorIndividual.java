@@ -17,7 +17,7 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
     
     public PosVectorIndividual(P problem, int size, int altura, int largura, double prob1s) {
         super(problem);
-        genome = new int[size];
+        genome = new int[size * 3];
         this.altura = altura;
         this.largura = largura;
         
@@ -26,9 +26,6 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
             genome[g+1]= GeneticAlgorithm.random.nextInt(largura);
             genome[g+2] = GeneticAlgorithm.random.nextInt(4);
         }
-//        for (int g = 0; g < genome.length; g++) {
-//            genome[g] = (GeneticAlgorithm.random.nextDouble() < prob1s) ? ONE : ZERO;
-//        }
     }
     
     public PosVectorIndividual(PosVectorIndividual<P> original) {
