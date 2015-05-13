@@ -19,7 +19,6 @@ public class Peca {
     private int[][] forma270;
     private int altura;
     private int largura;
-    private ArrayList<int[][]> formasTest = new ArrayList<>(3);
 
     public Peca(int id, int[][] forma, int altura, int largura) {
         this.id = id;
@@ -27,11 +26,16 @@ public class Peca {
         this.forma90 = rotMatrix(this.forma);
         this.forma180 = rotMatrix(this.forma90);
         this.forma270 = rotMatrix(this.forma180);
+        
+        this.altura = altura;
+        this.largura = largura;
+        
+        /*
+        ArrayList<int[][]> formasTest = new ArrayList<>(3);
         formasTest.add(this.forma);
         formasTest.add(this.forma90);
         formasTest.add(this.forma180);
         formasTest.add(this.forma270);
-
         for (int[][] form : formasTest){
             StringBuilder str = new StringBuilder();
             for (int i=0; i<form.length; i++){
@@ -42,8 +46,7 @@ public class Peca {
             }
             System.out.println(str);
         }
-        this.altura = altura;
-        this.largura = largura;
+        */  
     }
     
     @Override
@@ -74,12 +77,10 @@ public class Peca {
         }
     }
 
-
 /*
 	this method rotates a matrix 90 degrees to the right
 	the largura and altura are the rotated matrix values
 */
-
     private int[][] rotMatrix(int[][] original)
     {
         int largura = original.length;
