@@ -49,6 +49,8 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         max[1] = 0;
         int sobreposicao = 0;
         int outOfBounds = 0;
+        int area = 0;
+        int desperdicio = 0;
         
         for (int i = 0; i < numPecas; i ++){
             //Peca peca = problem.getPeca(i);
@@ -58,15 +60,83 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             
             for(int x=0; x < forma.length; x++){
                 for(int y= 0; y < forma[0].length; y++){
-                    sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
                     if(posX+x > tela.length || posY+y > tela[0].length){
                         outOfBounds+=1;
-                    }else{
+                    }else if(forma[x][y] != 0){
+                        sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
                         tela[posX+x][posY+y]= forma[x][y];
+                        //tela[posX+x][posY+y]= problem.getPeca(i).getId();
+
                     }
                 }
             }
         }
+        //calcula o X min 
+        for(int c=0; c < tela.length; c++){
+            int somaX = 0;
+            
+            for(int y = 0; y<tela[0].length; y++){
+                somaX += tela[c][y];
+            }
+            
+            if(somaX!=0){
+                min[0]= c;
+                break;
+            }
+        }
+        //calcula o Y min 
+        for(int c=0; c < tela[0].length; c++){
+            int somaY = 0;
+            
+            for(int x = 0; x<tela.length; x++){
+                somaY += tela[x][c];
+            }
+            
+            if(somaY!=0){
+                min[1]= c;
+                break;
+            }
+        }
+        //calcula o X max 
+        for(int c=tela.length; c > 0; c--){
+            int somaX = 0;
+            
+            for(int y = tela[0].length; y>0; y--){
+                somaX += tela[c][y];
+            }
+            
+            if(somaX!=0){
+                max[0]= c+1;
+                break;
+            }
+        }
+        //calcula o Y max
+        for(int c=tela[0].length; c > 0; c--){
+            int somaY = 0;
+            
+            for(int x = tela.length; x > 0; x--){
+                somaY += tela[x][c];
+            }
+            
+            if(somaY!=0){
+                max[1]= c +1;
+                break;
+            }
+        }
+            
+        //calculo da area de tela utilizada
+        area = (max[0] - min[0])*(max[1] - min[1]);
+        
+        //calculo da area desperdicada
+        for(int x = min[0]; x <max[1]; x++){
+            for(int y =min[1]; y < max[1]; y++){
+                if(tela[x][y] ==0){
+                    desperdicio +=1;
+                }
+            }
+        }
+            
+        int areaEfetiva = area -desperdicio;
         
         
         return fitness;
