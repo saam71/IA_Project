@@ -6,6 +6,7 @@
 package OptArea;
 
 import ga.PosVectorIndividual;
+import java.util.Arrays;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
@@ -68,12 +69,14 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                         outOfBounds+=1;
                     }else if(forma[x][y] != 0){
                         sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
-                        tela[posX+x][posY+y]= forma[x][y];
-                        //tela[posX+x][posY+y]= problem.getPeca(i).getId();
+                        //tela[posX+x][posY+y]= forma[x][y];
+                        tela[posX+x][posY+y]= problem.getPeca(i).getId();
                     }
                 }
             }
         }
+        
+        System.out.println(Arrays.deepToString(tela));
         
         //calcula o X min 
         for(int c=0; c < tela.length; c++){
@@ -133,7 +136,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
         
         //calculo da area desperdicada
-        for(int x = min[0]; x <max[1]; x++){
+        for(int x = min[0]; x <max[0]; x++){
             for(int y =min[1]; y < max[1]; y++){
                 if(tela[x][y] ==0){
                     desperdicio +=1;
