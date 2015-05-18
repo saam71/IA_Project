@@ -12,7 +12,7 @@ public class RecombinationOneCut <I extends Individual> extends Recombination<I>
     public void run(I ind1, I ind2) {
         int cut = GeneticAlgorithm.random.nextInt(ind1.getNumGenes());
 
-        for (int g = 0; g < cut; g++) {
+        for (int g = 0; g < cut; g+=3) {
             ind1.swapGenes(ind2, g);
         }
     }

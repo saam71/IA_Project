@@ -181,7 +181,7 @@ public class MainFrame extends JFrame implements GAListener {
             gat = new GeneticAlgorithm<OptAreaIndividual, OptArea>(
                     Integer.parseInt(panelParameters.jTextFieldN.getText()),
                     Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
-                    new RouletteWheel<OptAreaIndividual, OptArea>(0),
+                    panelParameters.getSelectionMethod(),
                     new RecombinationOneCut<OptAreaIndividual>(0),
                     new PosMutation<OptAreaIndividual>(0),
                     new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
@@ -236,7 +236,7 @@ public class MainFrame extends JFrame implements GAListener {
 //            ga = new GeneticAlgorithm<KnapsackIndividual, Knapsack>(
 //                    Integer.parseInt(panelParameters.jTextFieldN.getText()),
 //                    Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
-//                    panelParameters.getSelectionMethod(),
+                   //panelParameters.getSelectionMethod(),
 //                    panelParameters.getRecombinationMethod(),
 //                    panelParameters.getMutationMethod(),
 //                    new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
@@ -550,30 +550,30 @@ class PanelParameters extends PanelAtributesValue {
         jTextFieldTournamentSize.setEnabled((jComboBoxSelectionMethods.getSelectedIndex() == 0) ? true : false);
     }
 
-    public SelectionMethod<KnapsackIndividual, Knapsack> getSelectionMethod() {
+    public SelectionMethod<OptAreaIndividual, OptArea> getSelectionMethod() {
         switch (jComboBoxSelectionMethods.getSelectedIndex()) {
             case 0:
-                return new Tournament<KnapsackIndividual, Knapsack>(
+                return new Tournament<OptAreaIndividual, OptArea>(
                         Integer.parseInt(jTextFieldN.getText()),
                         Integer.parseInt(jTextFieldTournamentSize.getText()));
             case 1:
-                return new RouletteWheel<KnapsackIndividual, Knapsack>(
+                return new RouletteWheel<OptAreaIndividual, OptArea>(
                         Integer.parseInt(jTextFieldN.getText()));
         }
         return null;
     }
 
-    public Recombination<KnapsackIndividual> getRecombinationMethod() {
+    public Recombination<OptAreaIndividual> getRecombinationMethod() {
 
         double recombinationProb = Double.parseDouble(jTextFieldProbRecombination.getText());
 
         switch (jComboBoxRecombinationMethods.getSelectedIndex()) {
             case 0:
-                return new RecombinationOneCut<KnapsackIndividual>(recombinationProb);
+                return new RecombinationOneCut<OptAreaIndividual>(recombinationProb);
             case 1:
-                return new RecombinationTwoCuts<KnapsackIndividual>(recombinationProb);
+                return new RecombinationTwoCuts<OptAreaIndividual>(recombinationProb);
             case 2:
-                return new RecombinationUniform<KnapsackIndividual>(recombinationProb);
+                return new RecombinationUniform<OptAreaIndividual>(recombinationProb);
         }
         return null;
     }

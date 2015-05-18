@@ -47,8 +47,16 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
     }
 
     public void swapGenes(PosVectorIndividual other, int g) {
-        int aux = genome[g];
-        genome[g] = other.genome[g];
-        other.genome[g] = aux;
+        int aux0 = genome[g*3];
+        int aux1 = genome[g*3+1];
+        int aux2 = genome[g*3+2];
+        genome[g*3] = other.genome[g*3];
+        genome[g*3+1] = other.genome[g*3+1];
+        genome[g*3+1] = other.genome[g*3+1];
+
+        other.genome[g*3] = aux0;
+        other.genome[g*3+1] = aux1;
+        other.genome[g*3+2] = aux2;
+
     }
 }
