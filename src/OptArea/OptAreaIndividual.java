@@ -67,8 +67,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                     if(posX+x > tela.length-1 || posY+y > tela[0].length-1){
                         outOfBounds+=1;
                     }else if(forma[x][y] != 0){
-                        sobreposicao +=1; // (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
-                    }else{
+                        sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
                         tela[posX+x][posY+y]= forma[x][y];
                         //tela[posX+x][posY+y]= problem.getPeca(i).getId();
                     }
