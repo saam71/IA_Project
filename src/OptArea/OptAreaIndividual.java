@@ -17,6 +17,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     private int largura;
     private int [][] tela;
     private int numPecas;
+    private double penalty;
     
     public OptAreaIndividual(OptArea problem, int size, int altura, int largura, double prob1s) {
         super(problem, size, altura, largura, prob1s);
@@ -25,6 +26,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         this.largura = largura;
         this.tela = new int[altura][largura];
         this.numPecas = size;
+        this.penalty = 0.5;
         /*
         System.out.println("genoma:");
         for(int p = 0; p< genome.length; p+=3){
@@ -52,6 +54,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         int area = 0;
         int desperdicio = 0;
         
+        //desenho da tela com as pecas e contagem das sobrposicoes e out of bounds
         for (int i = 0; i < numPecas; i ++){
             //Peca peca = problem.getPeca(i);
             int posX = getGene(i*3);
@@ -63,14 +66,15 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                     if(posX+x > tela.length || posY+y > tela[0].length){
                         outOfBounds+=1;
                     }else if(forma[x][y] != 0){
-                        sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
+                        sobreposicao +=1; // (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
+                    }else{
                         tela[posX+x][posY+y]= forma[x][y];
                         //tela[posX+x][posY+y]= problem.getPeca(i).getId();
-
                     }
                 }
             }
         }
+        
         //calcula o X min 
         for(int c=0; c < tela.length; c++){
             int somaX = 0;
@@ -138,6 +142,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             
         int areaEfetiva = area -desperdicio;
         
+        fitness = ((tela.length * tela[0].length)/areaEfetiva) - penalty*(sobreposicao+outOfBounds);
         
         return fitness;
     }
