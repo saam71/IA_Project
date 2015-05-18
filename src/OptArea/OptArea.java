@@ -28,6 +28,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         System.out.println("largura " + largura + " altura " + altura );
     }
     
+    @Override
     public OptAreaIndividual getNewIndividual(){
         return new OptAreaIndividual(this, pecas.length, altura, largura, prob1s);
     }

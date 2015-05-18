@@ -183,7 +183,7 @@ public class MainFrame extends JFrame implements GAListener {
                     Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
                     panelParameters.getSelectionMethod(),
                     panelParameters.getRecombinationMethod(),
-                    new PosMutation<OptAreaIndividual>(0),
+                    panelParameters.getMutationMethod(),
                     new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
 
             System.out.println("Prob of 1s: " + optArea.getProb1s());
@@ -577,9 +577,9 @@ class PanelParameters extends PanelAtributesValue {
         return null;
     }
 
-    public BinaryMutation<KnapsackIndividual> getMutationMethod() {
+    public PosMutation<OptAreaIndividual> getMutationMethod() {
         double mutationProb = Double.parseDouble(jTextFieldProbMutation.getText());
-        return new BinaryMutation<KnapsackIndividual>(mutationProb);
+        return new PosMutation<OptAreaIndividual>(mutationProb);
     }
 
     public void actionPerformedFitnessType(ActionEvent e) {
