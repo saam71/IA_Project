@@ -182,7 +182,7 @@ public class MainFrame extends JFrame implements GAListener {
                     Integer.parseInt(panelParameters.jTextFieldN.getText()),
                     Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
                     panelParameters.getSelectionMethod(),
-                    new RecombinationOneCut<OptAreaIndividual>(0),
+                    panelParameters.getRecombinationMethod(),
                     new PosMutation<OptAreaIndividual>(0),
                     new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
 
@@ -197,7 +197,6 @@ public class MainFrame extends JFrame implements GAListener {
             worker = new SwingWorker<Void, Void>() {
                 public Void doInBackground() {
                     try {
-
                         gat.run(optArea);
 
                     } catch (Exception e) {
@@ -275,7 +274,7 @@ public class MainFrame extends JFrame implements GAListener {
 //    }
 
     public void generationEnded(GAEvent e) {
-        GeneticAlgorithm<KnapsackIndividual, Knapsack> source = e.getSource();
+        GeneticAlgorithm<OptAreaIndividual, OptArea> source = e.getSource();
         bestIndividualPanel.textArea.setText(source.getBestInRun().toString());
         seriesBestIndividual.add(source.getGeneration(), source.getBestInRun().getFitness());
         seriesAverage.add(source.getGeneration(), source.getAverageFitness());

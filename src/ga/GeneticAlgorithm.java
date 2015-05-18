@@ -57,6 +57,8 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
             //System.out.println(population);
         }
         fireRunEnded(new GAEvent(this));
+        bestInRun.computeFitness();
+        bestInRun.print();
         return bestInRun;
     }
 

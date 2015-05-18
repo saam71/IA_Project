@@ -27,5 +27,6 @@ public abstract class Individual<P extends Problem, I extends Individual>{
     @Override
     public abstract I clone();
     
+    public abstract void print();
   
 }

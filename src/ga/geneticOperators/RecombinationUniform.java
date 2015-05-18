@@ -12,7 +12,7 @@ public class RecombinationUniform <I extends Individual> extends Recombination<I
     public void run(Individual ind1, Individual ind2) {
         int indSize = ind1.getNumGenes();
 
-        for (int g = 0; g < indSize; g++) {
+        for (int g = 0; g < indSize; g+=3) {
             if (GeneticAlgorithm.random.nextInt(2) == 0) {
                 ind1.swapGenes(ind2, g);
             }

@@ -40,6 +40,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 
     public OptAreaIndividual(OptAreaIndividual original) {
         super(original);
+        this.altura = original.altura;
+        this.largura = original.largura;
+        this.tela = new int[altura][largura];
+        this.numPecas = original.numPecas;
+        this.penalty = original.penalty;
     }
     
     @Override
@@ -76,7 +81,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             }
         }
         
-        System.out.println(Arrays.deepToString(tela));
+        //System.out.println(Arrays.deepToString(tela));
         
         //calcula o X min 
         for(int c=0; c < tela.length; c++){
@@ -133,7 +138,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             
         //calculo da area de tela utilizada
         area = (max[0] - min[0])*(max[1] - min[1]);
-        System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
+        //System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
         
         //calculo da area desperdicada
         for(int x = min[0]; x <max[0]; x++){
@@ -152,11 +157,6 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     }
 
     @Override
-    public void swapGenes(PosVectorIndividual other, int g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public PosVectorIndividual clone() {
         return new OptAreaIndividual(this);
     }
@@ -167,5 +167,12 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         sb.append("genoma: " + genome);
         sb.append("\n");
         return sb.toString();
-    } 
+    }
+
+    @Override
+    public void print() {
+        System.out.println(Arrays.deepToString(tela));
+    }
+    
+    
 }

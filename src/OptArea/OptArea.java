@@ -117,6 +117,6 @@ public class OptArea implements Problem <OptAreaIndividual>{
             pecas[i] = new Peca(i+1, forma, altura, largura);
         }
 
-        return new OptArea(pecas, alturaTela, larguraTela, 0.5);
+        return new OptArea(pecas, alturaTela, larguraTela/2, 0.5);
     }
 }

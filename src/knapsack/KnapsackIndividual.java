@@ -60,4 +60,9 @@ public class KnapsackIndividual extends BitVectorIndividual <Knapsack>{
     public KnapsackIndividual clone() {
         return new KnapsackIndividual(this);
     }    
+
+    @Override
+    public void print() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
