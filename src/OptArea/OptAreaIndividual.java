@@ -170,9 +170,16 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     }
 
     @Override
-    public void print() {
-        System.out.println(Arrays.deepToString(tela));
+    public void printTela() {
+        StringBuilder st = new StringBuilder();
+        for (int x = 0 ; x < tela.length; x++ ){
+            st.append("|");
+            for (int y = 0 ; y < tela[0].length; y++){
+               st.append(tela[x][y] + " ");
+            }
+            st.append("|\n");
+        }
+        System.out.println(st);
     }
-    
     
 }

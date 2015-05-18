@@ -62,7 +62,7 @@ public class KnapsackIndividual extends BitVectorIndividual <Knapsack>{
     }    
 
     @Override
-    public void print() {
+    public void printTela() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
