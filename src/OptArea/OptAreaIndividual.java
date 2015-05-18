@@ -6,6 +6,7 @@
 package OptArea;
 
 import ga.PosVectorIndividual;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -63,7 +64,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             
             for(int x=0; x < forma.length; x++){
                 for(int y= 0; y < forma[0].length; y++){
-                    if(posX+x > tela.length || posY+y > tela[0].length){
+                    if(posX+x > tela.length-1 || posY+y > tela[0].length-1){
                         outOfBounds+=1;
                     }else if(forma[x][y] != 0){
                         sobreposicao +=1; // (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
@@ -102,10 +103,10 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             }
         }
         //calcula o X max 
-        for(int c=tela.length; c > 0; c--){
+        for(int c=tela.length-1; c > 0; c--){
             int somaX = 0;
             
-            for(int y = tela[0].length; y>0; y--){
+            for(int y = tela[0].length-1; y>0; y--){
                 somaX += tela[c][y];
             }
             
@@ -115,10 +116,10 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             }
         }
         //calcula o Y max
-        for(int c=tela[0].length; c > 0; c--){
+        for(int c=tela[0].length-1; c > 0; c--){
             int somaY = 0;
             
-            for(int x = tela.length; x > 0; x--){
+            for(int x = tela.length-1; x > 0; x--){
                 somaY += tela[x][c];
             }
             
@@ -130,6 +131,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             
         //calculo da area de tela utilizada
         area = (max[0] - min[0])*(max[1] - min[1]);
+        System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
         
         //calculo da area desperdicada
         for(int x = min[0]; x <max[1]; x++){
@@ -140,7 +142,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             }
         }
             
-        int areaEfetiva = area -desperdicio;
+        int areaEfetiva = area - desperdicio;
         
         fitness = ((tela.length * tela[0].length)/areaEfetiva) - penalty*(sobreposicao+outOfBounds);
         
