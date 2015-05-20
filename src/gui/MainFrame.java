@@ -8,28 +8,29 @@ import ga.GAEvent;
 import ga.GAListener;
 import ga.GeneticAlgorithm;
 import ga.geneticOperators.*;
-import ga.selectionMethods.*;
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import javax.swing.*;
-import knapsack.*;
+import ga.selectionMethods.RouletteWheel;
+import ga.selectionMethods.SelectionMethod;
+import ga.selectionMethods.Tournament;
+import knapsack.Knapsack;
+import knapsack.KnapsackExperimentsFactory;
+import knapsack.KnapsackIndividual;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class MainFrame extends JFrame implements GAListener {
 
@@ -41,6 +42,7 @@ public class MainFrame extends JFrame implements GAListener {
     private KnapsackExperimentsFactory experimentsFactory;
     private PanelTextArea problemPanel;
     PanelTextArea bestIndividualPanel;
+    PanelGrid bestIndividualGrid;
     private PanelParameters panelParameters = new PanelParameters();
     private JButton buttonDataSet = new JButton("Data set");
     private JButton buttonRun = new JButton("Run");
@@ -51,6 +53,8 @@ public class MainFrame extends JFrame implements GAListener {
     private XYSeries seriesBestIndividual;
     private XYSeries seriesAverage;
     private SwingWorker<Void, Void> worker;
+    private JPanel centerPanel;
+    private JPanel globalPanel;
 
     public MainFrame() {
         try {
@@ -112,10 +116,14 @@ public class MainFrame extends JFrame implements GAListener {
 
         //Center panel       
         problemPanel = new PanelTextArea("Problem data: ", 20, 40);
-        bestIndividualPanel = new PanelTextArea("Best solution: ", 20, 40);
-        JPanel centerPanel = new JPanel(new BorderLayout());
+        //bestIndividualPanel = new PanelTextArea("Best solution: ", 20, 40);
+
+        bestIndividualGrid = new PanelGrid("Best solution: ", testMatrix());
+
+        centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(problemPanel, java.awt.BorderLayout.WEST);
-        centerPanel.add(bestIndividualPanel, java.awt.BorderLayout.CENTER);
+        //Add grid
+        centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
 
         //South Panel
         JPanel southPanel = new JPanel();
@@ -133,13 +141,50 @@ public class MainFrame extends JFrame implements GAListener {
         textFieldExperimentsStatus.setEditable(false);
 
         //Global structure
-        JPanel globalPanel = new JPanel(new BorderLayout());
+        globalPanel = new JPanel(new BorderLayout());
         globalPanel.add(northPanel, java.awt.BorderLayout.NORTH);
         globalPanel.add(centerPanel, java.awt.BorderLayout.CENTER);
         globalPanel.add(southPanel, java.awt.BorderLayout.SOUTH);
         this.getContentPane().add(globalPanel);
 
         pack();
+    }
+
+    public int[][] testMatrix(){
+        int[][] first = new int[5][10];//CxR
+
+        //P1
+        first[0][0] = 1;
+        first[0][1] = 1;
+        first[1][0] = 1;
+        //P2
+        first[2][0] = 2;
+        first[2][1] = 2;
+        first[3][0] = 2;
+        first[3][1] = 2;
+        //P3
+        first[0][3] = 3;
+        first[0][4] = 3;
+        first[0][5] = 3;
+        first[1][4] = 3;
+        first[1][5] = 3;
+        //P4
+        first[0][2] = 4;
+        first[1][1] = 4;
+        first[1][2] = 4;
+        first[1][3] = 4;
+        first[2][2] = 4;
+        first[2][3] = 4;
+        //P5
+        first[3][2] = 5;
+        first[3][3] = 5;
+        first[3][4] = 5;
+        //P6
+        first[4][0] = 6;
+        first[4][1] = 6;
+        first[4][2] = 6;
+
+        return first;
     }
 
     public void buttonDataSet_actionPerformed(ActionEvent e) {
@@ -171,7 +216,8 @@ public class MainFrame extends JFrame implements GAListener {
                 return;
             }
 
-            bestIndividualPanel.textArea.setText("");
+            //bestIndividualPanel.textArea.setText("");
+           // bestIndividualGrid = new PanelGrid("Best solution: ",5, 10);
             seriesBestIndividual.clear();
             seriesAverage.clear();
 
@@ -273,9 +319,15 @@ public class MainFrame extends JFrame implements GAListener {
 //        }
 //    }
 
+    //##################
     public void generationEnded(GAEvent e) {
         GeneticAlgorithm<OptAreaIndividual, OptArea> source = e.getSource();
-        bestIndividualPanel.textArea.setText(source.getBestInRun().toString());
+        //bestIndividualPanel.textArea.setText(source.getBestInRun().toString());
+
+        /*centerPanel.remove(bestIndividualGrid);
+        bestIndividualGrid = new PanelGrid("Best solution: ", new int[10][5]);
+        centerPanel.add(bestIndividualGrid);*/
+
         seriesBestIndividual.add(source.getGeneration(), source.getBestInRun().getFitness());
         seriesAverage.add(source.getGeneration(), source.getAverageFitness());
         if (worker.isCancelled()) {
@@ -436,6 +488,101 @@ class PanelTextArea extends JPanel {
     }
 }
 
+//New Stuff For Better Material Representation
+class PanelGrid extends JPanel{
+    private GridLayout gridLayout;
+
+    /*public PanelGrid(String title, int rows, int columns){
+        setLayout(new BorderLayout());
+        add(new JLabel(title), java.awt.BorderLayout.NORTH);
+
+        gridLayout = new GridLayout(rows, columns, 2, 2);
+
+        JPanel gridPanel = new JPanel(gridLayout);
+        //gridPanel.setBackground(Color.BLACK);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                JLabel label = new JLabel();
+                label.setOpaque(true);
+                label.setBackground(createHLSPastelColor());
+                //label.setBorder(BorderFactory.createEtchedBorder());
+                //label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                gridPanel.add(label);
+            }
+        }
+        JScrollPane scrollPane = new JScrollPane(gridPanel);
+        add(scrollPane);
+    }*/
+
+    public PanelGrid(String title, int[][] matrix){
+        setLayout(new BorderLayout());
+        add(new JLabel(title), java.awt.BorderLayout.NORTH);
+        gridLayout = new GridLayout(matrix.length, matrix[0].length, 2, 2);
+
+        JPanel gridPanel = new JPanel(gridLayout);
+        //Get pieces on matrix
+        HashMap<Integer,Color> pieces = new HashMap<>();
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                if(!pieces.containsKey((matrix[row][col]))){
+                    pieces.put(matrix[row][col], createHLSPastelColor());
+                }
+            }
+        }
+
+        JLabel[][] jLabels = new JLabel[matrix.length][matrix[0].length];
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                    JLabel label = new JLabel("",SwingConstants.CENTER);
+                    label.setOpaque(true);
+                    gridPanel.add(label);
+                    jLabels[row][col]=label;
+            }
+        }
+
+        for (Map.Entry<Integer, Color> entry : pieces.entrySet()) {
+            for (int row = 0; row < matrix.length; row++) {
+                for (int col = 0; col < matrix[0].length; col++) {
+                    if(matrix[row][col]==entry.getKey()) {
+                        jLabels[row][col].setText(Integer.toString(entry.getKey()));
+                        jLabels[row][col].setBackground(entry.getValue());
+                    }
+                }
+            }
+        }
+
+        JScrollPane scrollPane = new JScrollPane(gridPanel);
+        add(scrollPane);
+    }
+
+    public Color createHLSPastelColor(){
+        Random random = new Random();
+        float hue = random.nextFloat();
+        float saturation = (random.nextInt(2000) + 1000) / 10000f;
+        float luminance = 0.9f;
+
+        return Color.getHSBColor(hue, saturation, luminance);
+    }
+
+    public Color createBrightHLSPastelColor(){
+        int R = (int)(Math.random()*256);
+        int G = (int)(Math.random()*256);
+        int B= (int)(Math.random()*256);
+
+        return  new Color(R, G, B); //bright or dull
+    }
+
+    public Color createRainbowBrightHLSPastelColor(){
+        Random random = new Random();
+        float hue = random.nextFloat();
+        float saturation = 0.9f;
+        float luminance = 1.0f;
+
+        return Color.getHSBColor(hue, saturation, luminance);
+    }
+}
+
 class PanelAtributesValue extends JPanel {
 
     protected String title;
@@ -553,11 +700,9 @@ class PanelParameters extends PanelAtributesValue {
         switch (jComboBoxSelectionMethods.getSelectedIndex()) {
             case 0:
                 return new Tournament<OptAreaIndividual, OptArea>(
-                        Integer.parseInt(jTextFieldN.getText()),
-                        Integer.parseInt(jTextFieldTournamentSize.getText()));
+                        Integer.parseInt(jTextFieldN.getText()),Integer.parseInt(jTextFieldTournamentSize.getText()));
             case 1:
-                return new RouletteWheel<OptAreaIndividual, OptArea>(
-                        Integer.parseInt(jTextFieldN.getText()));
+                return new RouletteWheel<OptAreaIndividual, OptArea>(Integer.parseInt(jTextFieldN.getText()));
         }
         return null;
     }
