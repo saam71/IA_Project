@@ -170,30 +170,36 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         }
             
         int areaEfetiva = area - desperdicio;
+
+        /*########################################
+        ##### AREA PARA CALCULO DE FITNESSES######
+        ##########################################*/
     
         
-// ESTE BLOCO EXCLUI TUDO O QUE TENHA OVERLAPS E SOBREPOSICOES        
-//        if(sobreposicao+outOfBounds > 0){
-//            fitness = 0;
-//        }else{
-//            fitness = ((tela.length * tela[0].length)/areaEfetiva) ;
-//        }
-        
 
-// FORMULA MUITO ARCAICA
-//fitness = ((tela.length * tela[0].length)/areaEfetiva) - 2*(sobreposicao+outOfBounds);
+        // FORMULA MUITO ARCAICA
+        //fitness = ((tela.length * tela[0].length)/areaEfetiva) - 2*(sobreposicao+outOfBounds);
         
         
         //fitness = ((tela.length * tela[0].length)*2/areaEfetiva)-  penalty*(sobreposicao+outOfBounds);
         
-                //fitness = 100+(((tela.length * tela[0].length)/area)- desperdicio - 5*(sobreposicao+outOfBounds));
+        //fitness = 100+(((tela.length * tela[0].length)/area)- desperdicio - 5*(sobreposicao+outOfBounds));
                 
+        // if(sobreposicao > 0 || outOfBounds > 0){
+        //     fitness = 0;
+        // }else{
+        //     fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - desperdicio - energiaCorte - 4*(sobreposicao+outOfBounds));
+        // }
+        
+        
         fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - 2*desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
-//        if(sobreposicao > 0 || outOfBounds > 0){
-//            fitness = 0;
-//        }else{
-//            fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - desperdicio - energiaCorte - 4*(sobreposicao+outOfBounds));
-//        }
+
+
+
+        /*########################################
+        ##### AREA PARA CALCULO DE FITNESSES######
+        ##########################################*/
+
         
         return fitness;
     }
