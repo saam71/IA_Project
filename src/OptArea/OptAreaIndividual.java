@@ -25,6 +25,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     private int desperdicio;
     private int sobreposicao;
     private int outOfBounds;
+    private int energiaCorte;
     
     public OptAreaIndividual(OptArea problem, int size, int altura, int largura, double prob1s) {
         super(problem, size, altura, largura, prob1s);
@@ -33,7 +34,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         this.largura = largura;
         this.tela = new int[altura][largura];
         this.numPecas = size;
-        this.penalty = 1.5;
+        this.penalty = 5;
         
         /*
         System.out.println("genoma:");
@@ -147,17 +148,30 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         area = (max[0] - min[0])*(max[1] - min[1]);
         //System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
         
-        //calculo da area desperdicada
+                //calculo da area desperdicada e da energia de corte
+        this.energiaCorte = 0;
         for(int x = min[0]; x <max[0]; x++){
             for(int y =min[1]; y < max[1]; y++){
                 if(tela[x][y] ==0){
                     desperdicio +=1;
+                }
+                if(!(x+1 >= tela.length) && !(y +1 >=tela[0].length)){  
+                    if(tela[x][y] != tela[x+1][y+1]){
+                        energiaCorte++;
+                    }
+                }
+                if(!(x+1>= tela.length) && tela[x][y] != tela[x+1][y]){
+                    energiaCorte++;
+                }
+                if(!(y +1 >=tela[0].length) && tela[x][y] != tela[x][y+1]){
+                    energiaCorte++;
                 }
             }
         }
             
         int areaEfetiva = area - desperdicio;
     
+        
 // ESTE BLOCO EXCLUI TUDO O QUE TENHA OVERLAPS E SOBREPOSICOES        
 //        if(sobreposicao+outOfBounds > 0){
 //            fitness = 0;
@@ -170,7 +184,16 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 //fitness = ((tela.length * tela[0].length)/areaEfetiva) - 2*(sobreposicao+outOfBounds);
         
         
-        fitness = ((tela.length * tela[0].length)*2/areaEfetiva)-  penalty*(sobreposicao+outOfBounds);
+        //fitness = ((tela.length * tela[0].length)*2/areaEfetiva)-  penalty*(sobreposicao+outOfBounds);
+        
+                //fitness = 100+(((tela.length * tela[0].length)/area)- desperdicio - 5*(sobreposicao+outOfBounds));
+                
+        fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - 2*desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
+//        if(sobreposicao > 0 || outOfBounds > 0){
+//            fitness = 0;
+//        }else{
+//            fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - desperdicio - energiaCorte - 4*(sobreposicao+outOfBounds));
+//        }
         
         return fitness;
     }

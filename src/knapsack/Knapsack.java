@@ -1,5 +1,6 @@
 package knapsack;
 
+import OptArea.Peca;
 import ga.Problem;
 import java.io.File;
 import java.io.IOException;
@@ -102,5 +103,10 @@ public class Knapsack implements Problem <KnapsackIndividual>{
         }
 
         return new Knapsack(items, pM, 0.5);
+    }
+
+    @Override
+    public Peca getPeca(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,5 +1,7 @@
 package ga;
 
+import OptArea.Peca;
+
 public interface Problem<E extends Individual> {
 
     /*
@@ -7,4 +9,6 @@ public interface Problem<E extends Individual> {
      * Individuals. This is a problem specific operation.
      */
     E getNewIndividual();
+    
+    Peca getPeca(int index);
 }

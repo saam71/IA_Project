@@ -218,4 +218,5 @@ pip-log.txt
 
 #NET BEANS
 nbproject/private/
+build/
 
