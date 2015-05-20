@@ -20,7 +20,8 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         genome = new int[size * 3];
         this.altura = altura;
         this.largura = largura;
-        
+
+        //fazer automático?
         for(int g = 0; g < genome.length; g+=3){
             genome[g] = GeneticAlgorithm.random.nextInt(altura);
             genome[g+1]= GeneticAlgorithm.random.nextInt(largura);
