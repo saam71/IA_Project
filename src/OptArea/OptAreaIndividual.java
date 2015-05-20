@@ -21,6 +21,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     private int numPecas;
     private double penalty;
     
+    private int area;
+    private int desperdicio;
+    private int sobreposicao;
+    private int outOfBounds;
+    
     public OptAreaIndividual(OptArea problem, int size, int altura, int largura, double prob1s) {
         super(problem, size, altura, largura, prob1s);
         
@@ -28,7 +33,8 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         this.largura = largura;
         this.tela = new int[altura][largura];
         this.numPecas = size;
-        this.penalty = 0.5;
+        this.penalty = 1.5;
+        
         /*
         System.out.println("genoma:");
         for(int p = 0; p< genome.length; p+=3){
@@ -56,10 +62,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         int max[] = new int[2];
         max[0] = 0;
         max[1] = 0;
-        int sobreposicao = 0;
-        int outOfBounds = 0;
-        int area = 0;
-        int desperdicio = 0;
+        this.tela = new int [this.altura][this.largura];
+        this.sobreposicao = 0;
+        this.outOfBounds = 0;
+        this.area = 0;
+        this.desperdicio = 0;
         
         //desenho da tela com as pecas e contagem das sobrposicoes e out of bounds
         for (int i = 0; i < numPecas; i ++){
@@ -150,8 +157,20 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         }
             
         int areaEfetiva = area - desperdicio;
+    
+// ESTE BLOCO EXCLUI TUDO O QUE TENHA OVERLAPS E SOBREPOSICOES        
+//        if(sobreposicao+outOfBounds > 0){
+//            fitness = 0;
+//        }else{
+//            fitness = ((tela.length * tela[0].length)/areaEfetiva) ;
+//        }
         
-        fitness = ((tela.length * tela[0].length)/areaEfetiva) - penalty*(sobreposicao+outOfBounds);
+
+// FORMULA MUITO ARCAICA
+//fitness = ((tela.length * tela[0].length)/areaEfetiva) - 2*(sobreposicao+outOfBounds);
+        
+        
+        fitness = ((tela.length * tela[0].length)*2/areaEfetiva)-  penalty*(sobreposicao+outOfBounds);
         
         return fitness;
     }
@@ -171,7 +190,12 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 
     @Override
     public void printTela() {
+        this.computeFitness();
         StringBuilder st = new StringBuilder();
+        st.append("STATS: \nfitness= ").append(getFitness()).append("\narea= ").
+                append(this.area).append("\ndeperdicio= ").append(this.desperdicio).
+                append("\nsobreposicoes= ").append(this.sobreposicao).append("\nout of bounds= ").
+                append(this.outOfBounds).append("\n");
         for (int x = 0 ; x < tela.length; x++ ){
             st.append("|");
             for (int y = 0 ; y < tela[0].length; y++){
@@ -179,6 +203,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             }
             st.append("|\n");
         }
+        
         System.out.println(st);
     }
     

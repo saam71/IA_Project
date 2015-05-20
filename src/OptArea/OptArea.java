@@ -70,6 +70,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         sb.append("\n");
         sb.append("largura tela:");
         sb.append(largura);
+        sb.append("\n");
         sb.append("altura tela:");
         sb.append(altura);
         sb.append("\nId");

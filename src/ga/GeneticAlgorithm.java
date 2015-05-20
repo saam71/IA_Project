@@ -54,7 +54,9 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
             bestInRun = (bestInGen.getFitness() > bestInRun.getFitness()) ? (I) bestInGen.clone() : bestInRun;
             fireGenerationEnded(new GAEvent(this));
             //System.out.println("----------------------");
-            //System.out.println(population);
+//            //System.out.println(population);
+//                bestInRun.computeFitness();
+//                bestInRun.printTela();
         }
         fireRunEnded(new GAEvent(this));
         bestInRun.computeFitness();
