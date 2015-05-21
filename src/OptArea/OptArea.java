@@ -13,7 +13,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
     private int largura;
     private double prob1s;
     private int fitnessType = SIMPLE_FITNESS;
-    private double maxVP;
+    private double maxSobreOout;
 
     public OptArea(Peca[] pecas, int altura, int largura, double prob1s) {
         if (pecas == null) {
@@ -24,7 +24,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.prob1s = prob1s;
         this.altura = altura;
         this.largura = largura;
-        maxVP = computeMaxVP();
+        maxSobreOout = computeMaxSobrOut();
         System.out.println("largura " + largura + " altura " + altura );
     }
     
@@ -58,8 +58,8 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.fitnessType = fitnessType;
     }
 
-    public double getMaxVP() {
-        return maxVP;
+    public double getMaxSobrOut() {
+        return maxSobreOout;
     }
 
     @Override
@@ -80,15 +80,13 @@ public class OptArea implements Problem <OptAreaIndividual>{
         return sb.toString();
     }
 
-    private double computeMaxVP() {
-//        double max = pecas[0].value / pecas[0].weight;
-//        for (int i = 1; i < items.length; i++) {
-//            double divVP = items[i].value / items[i].weight;
-//            if (divVP > max) {
-//                max = divVP;
-//            }
-//        }
-        return 0.0;
+    private double computeMaxSobrOut() {
+        double soma=0;
+        for(int x=0; x< pecas.length; x++){
+            soma += pecas[x].getAltura() * pecas[x].getLargura();
+        }
+        
+        return soma;
     }
 
     public static OptArea buildOptArea(File file) throws IOException {

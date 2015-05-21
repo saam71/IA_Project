@@ -58,6 +58,14 @@ public class Peca {
         return id;
     }
 
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getLargura() {
+        return largura;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
