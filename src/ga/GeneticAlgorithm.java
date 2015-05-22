@@ -58,8 +58,9 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
 //                bestInRun.computeFitness();
 //                bestInRun.printTela();
         }
-        fireRunEnded(new GAEvent(this));
+
         bestInRun.computeFitness();
+        fireRunEnded(new GAEvent(this));
         bestInRun.printTela();
         return bestInRun;
     }
@@ -145,5 +146,9 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
         for (GAListener listener : listeners) {
             listener.runEnded(e);
         }
+    }
+
+    public int getMaxGenerations() {
+        return maxGenerations;
     }
 }

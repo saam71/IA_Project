@@ -41,7 +41,7 @@ public class MainFrame extends JFrame implements GAListener {
     private GeneticAlgorithm<OptAreaIndividual, OptArea> gat;
     private KnapsackExperimentsFactory experimentsFactory;
     private PanelTextArea problemPanel;
-    PanelTextArea bestIndividualPanel;
+    //PanelTextArea bestIndividualPanel;
     PanelGrid bestIndividualGrid;
     private PanelParameters panelParameters = new PanelParameters();
     private JButton buttonDataSet = new JButton("Data set");
@@ -118,7 +118,7 @@ public class MainFrame extends JFrame implements GAListener {
         problemPanel = new PanelTextArea("Problem data: ", 20, 40);
         //bestIndividualPanel = new PanelTextArea("Best solution: ", 20, 40);
 
-        bestIndividualGrid = new PanelGrid("Best solution: ", testMatrix());
+        bestIndividualGrid = new PanelGrid("Best solution: ", new int[1][1]);
 
         centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(problemPanel, java.awt.BorderLayout.WEST);
@@ -148,43 +148,6 @@ public class MainFrame extends JFrame implements GAListener {
         this.getContentPane().add(globalPanel);
 
         pack();
-    }
-
-    public int[][] testMatrix(){
-        int[][] first = new int[5][10];//CxR
-
-        //P1
-        first[0][0] = 1;
-        first[0][1] = 1;
-        first[1][0] = 1;
-        //P2
-        first[2][0] = 2;
-        first[2][1] = 2;
-        first[3][0] = 2;
-        first[3][1] = 2;
-        //P3
-        first[0][3] = 3;
-        first[0][4] = 3;
-        first[0][5] = 3;
-        first[1][4] = 3;
-        first[1][5] = 3;
-        //P4
-        first[0][2] = 4;
-        first[1][1] = 4;
-        first[1][2] = 4;
-        first[1][3] = 4;
-        first[2][2] = 4;
-        first[2][3] = 4;
-        //P5
-        first[3][2] = 5;
-        first[3][3] = 5;
-        first[3][4] = 5;
-        //P6
-        first[4][0] = 6;
-        first[4][1] = 6;
-        first[4][2] = 6;
-
-        return first;
     }
 
     public void buttonDataSet_actionPerformed(ActionEvent e) {
@@ -324,6 +287,16 @@ public class MainFrame extends JFrame implements GAListener {
         GeneticAlgorithm<OptAreaIndividual, OptArea> source = e.getSource();
         //bestIndividualPanel.textArea.setText(source.getBestInRun().toString());
 
+       /* if(source.getGeneration()==gat.getMaxGenerations()) {
+            centerPanel.remove(bestIndividualGrid);
+            System.out.println(Arrays.deepToString(gat.getBestInRun().getTela()));
+            bestIndividualGrid = new PanelGrid("Best solution: ", gat.getBestInRun().getTela());
+            //bestIndividualGrid.jTextArea.setText("Ola");
+            centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
+            bestIndividualGrid.repaint();
+            bestIndividualGrid.updateUI();
+        }*/
+
         /*centerPanel.remove(bestIndividualGrid);
         bestIndividualGrid = new PanelGrid("Best solution: ", new int[10][5]);
         centerPanel.add(bestIndividualGrid);*/
@@ -336,6 +309,18 @@ public class MainFrame extends JFrame implements GAListener {
     }
 
     public void runEnded(GAEvent e) {
+        centerPanel.remove(bestIndividualGrid);
+        System.out.println(Arrays.deepToString(gat.getBestInRun().getTela()));
+        bestIndividualGrid = new PanelGrid("Best solution: ", gat.getBestInRun().getTela());
+        bestIndividualGrid.jTextArea.setText("" +
+                "Fitness: "+gat.getBestInRun().getFitness()+"\t Overlap: "+gat.getBestInRun().getSobreposicao()+"\n" +
+                "Area: "+gat.getBestInRun().getArea()+"\t OutOfBounds: "+gat.getBestInRun().getOutOfBounds()+"\n" +
+                "Effective Area: "+(gat.getBestInRun().getArea()-gat.getBestInRun().getDesperdicio())+"\n" +
+                "Waste: "+gat.getBestInRun().getDesperdicio()+"\n" +
+                "Cut Energy: "+gat.getBestInRun().getEnergiaCorte());
+        centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
+        bestIndividualGrid.repaint();
+        bestIndividualGrid.updateUI();
     }
 
     public void jButtonStop_actionPerformed(ActionEvent e) {
@@ -490,7 +475,9 @@ class PanelTextArea extends JPanel {
 
 //New Stuff For Better Material Representation
 class PanelGrid extends JPanel{
-    private GridLayout gridLayout;
+    public GridLayout gridLayout;
+    public JTextArea jTextArea;
+    public JPanel gridPanel;
 
     /*public PanelGrid(String title, int rows, int columns){
         setLayout(new BorderLayout());
@@ -517,11 +504,15 @@ class PanelGrid extends JPanel{
     public PanelGrid(String title, int[][] matrix){
         setLayout(new BorderLayout());
         add(new JLabel(title), java.awt.BorderLayout.NORTH);
+
+        System.out.println(matrix.length+"|"+matrix[0].length);
         gridLayout = new GridLayout(matrix.length, matrix[0].length, 2, 2);
 
-        JPanel gridPanel = new JPanel(gridLayout);
+        gridPanel = new JPanel(gridLayout);
+        gridPanel.setMinimumSize(new Dimension(1,1));
         //Get pieces on matrix
         HashMap<Integer,Color> pieces = new HashMap<>();
+        pieces.put(0, Color.WHITE);
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[0].length; col++) {
                 if(!pieces.containsKey((matrix[row][col]))){
@@ -553,6 +544,10 @@ class PanelGrid extends JPanel{
         }
 
         JScrollPane scrollPane = new JScrollPane(gridPanel);
+        jTextArea = new JTextArea();
+        jTextArea.setRows(5);
+        jTextArea.setEditable(false);
+        add(jTextArea, BorderLayout.SOUTH);
         add(scrollPane);
     }
 

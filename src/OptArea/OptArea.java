@@ -65,17 +65,19 @@ public class OptArea implements Problem <OptAreaIndividual>{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("# of pieces: ");
+        sb.append("Number of pieces: ");
         sb.append(pecas.length);
         sb.append("\n");
-        sb.append("largura tela:");
-        sb.append(largura);
-        sb.append("\n");
-        sb.append("altura tela:");
-        sb.append(altura);
-        sb.append("\nId");
+        sb.append("Material size[HxW]: "+altura+"x"+largura);
+        sb.append("\n\n#Pieces description:");
         for (Peca peca : pecas) {
-            sb.append(peca.getId());
+            sb.append("\nid: "+peca.getId()+"\nDimensions[HxW]: "+peca.getForma(0).length+"x"+peca.getForma(0)[0].length+"\nForm:\n");
+            for (int row = 0; row < peca.getForma(0).length; row++) {
+                for (int column = 0; column < peca.getForma(0)[row].length; column++) {
+                    sb.append(peca.getForma(0)[row][column]);
+                }
+                sb.append("\n");
+            }
         }
         return sb.toString();
     }

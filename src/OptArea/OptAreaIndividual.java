@@ -82,8 +82,8 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                         outOfBounds+=1;
                     }else if(forma[x][y] != 0){
                         sobreposicao = (tela[posX+x][posY+y] != 0) ? sobreposicao+=1 : sobreposicao;
-                        tela[posX+x][posY+y]= 1;
-                        //tela[posX+x][posY+y]= problem.getPeca(i).getId();
+                        //tela[posX+x][posY+y]= 1;
+                        tela[posX+x][posY+y]= problem.getPeca(i).getId();
                     }
                 }
             }
@@ -191,7 +191,9 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         
         //fitness = 2*(((tela.length * tela[0].length)/area)*2 - 2*desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
         
-        fitness = ((tela.length * tela[0].length)/areaEfetiva) + penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds)) - energiaCorte - desperdicio;
+//        fitness = ((tela.length * tela[0].length)/areaEfetiva) + penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds)) - energiaCorte - desperdicio;
+        fitness = ((tela.length * tela[0].length)/areaEfetiva) + penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds))  -  energiaCorte - 2 *desperdicio;
+
         //fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - 2 * desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
       
         
@@ -238,5 +240,32 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         
         System.out.println(st);
     }
-    
+
+    public int[][] getTela() {
+        return tela;
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public int getDesperdicio() {
+        return desperdicio;
+    }
+
+    public int getEnergiaCorte() {
+        return energiaCorte;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getOutOfBounds() {
+        return outOfBounds;
+    }
+
+    public int getSobreposicao() {
+        return sobreposicao;
+    }
 }
