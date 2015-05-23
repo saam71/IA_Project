@@ -7,7 +7,6 @@ package OptArea;
 
 import ga.PosVectorIndividual;
 import java.util.Arrays;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -20,7 +19,6 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     private int [][] tela;
     private int numPecas;
     private double penalty;
-    
     private int area;
     private int desperdicio;
     private int sobreposicao;
@@ -228,23 +226,45 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     public PosVectorIndividual clone() {
         return new OptAreaIndividual(this);
     }
-    
-    
-    public String ToString(){
+
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("genoma: " + genome);
-        sb.append("\n");
+        sb.append("Fitness value: " + this.fitness + "\t\t Overlap: " + this.sobreposicao + "\n" +
+                "Area: " + this.area + "\t\t Out Of Bounds: " + this.outOfBounds + "\n" +
+                "Effective Area: " + (this.area - this.desperdicio) + "\n" +
+                "Waste: " + this.desperdicio + "\n" +
+                "Cut Energy: " + this.energiaCorte);
+        //sb.append("genoma: " + genome);
+        //sb.append("\n");
+        return sb.toString();
+    }
+
+
+    public String SecToString(){
+        computeFitness();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Fitness value: " + this.fitness+"\n");
+        sb.append("Area: " + this.area+"\n");
+        sb.append("Effective Area: " + (this.area - this.desperdicio)+"\n");
+        sb.append("Waste: " + this.desperdicio + "\n");
+        sb.append("Cut Energy: " + this.energiaCorte+"\n");
+        sb.append("Out Of Bounds: " + this.outOfBounds+"\n");
+        sb.append("Overlap: " + this.sobreposicao+"\n");
+        //sb.append("genoma: " + genome);
+        //sb.append("\n");
         return sb.toString();
     }
 
     @Override
-    public void printTela() {
+    public String printTela() {
         this.computeFitness();
         StringBuilder st = new StringBuilder();
-        st.append("STATS: \nfitness= ").append(getFitness()).append("\narea= ").
+        st.append("Best Solution:\n");
+       /* st.append("STATS: \nfitness= ").append(getFitness()).append("\narea= ").
                 append(this.area).append("\ndeperdicio= ").append(this.desperdicio).
                 append("\nsobreposicoes= ").append(this.sobreposicao).append("\nout of bounds= ").
-                append(this.outOfBounds).append("\n\n");
+                append(this.outOfBounds).append("\n\n");*/
         for (int x = 0 ; x < tela.length; x++ ){
             st.append("|");
             for (int y = 0 ; y < tela[0].length; y++){
@@ -253,36 +273,12 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
             st.append("|\n");
         }
         
-        st.append("\n" + Arrays.toString(genome));
-        
-        System.out.println(st);
+        //st.append("\n" + Arrays.toString(genome));
+        //System.out.println(st);
+        return st.toString();
     }
 
     public int[][] getTela() {
-        return tela;
-    }
-
-    public int getArea() {
-        return area;
-    }
-
-    public int getDesperdicio() {
-        return desperdicio;
-    }
-
-    public int getEnergiaCorte() {
-        return energiaCorte;
-    }
-
-    public int getAltura() {
-        return altura;
-    }
-
-    public int getOutOfBounds() {
-        return outOfBounds;
-    }
-
-    public int getSobreposicao() {
-        return sobreposicao;
+        return this.tela;
     }
 }

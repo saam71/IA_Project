@@ -61,7 +61,8 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
 
         bestInRun.computeFitness();
         fireRunEnded(new GAEvent(this));
-        bestInRun.printTela();
+        //bestInRun.printTela();
+
         return bestInRun;
     }
 
@@ -107,7 +108,7 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
         stopped = true;
     }
 
-    @Override
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Population size:" + populationSize + "\n");
