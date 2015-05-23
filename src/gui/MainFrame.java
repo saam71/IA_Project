@@ -2,6 +2,7 @@ package gui;
 
 import OptArea.OptArea;
 import OptArea.OptAreaIndividual;
+import OptArea.OptExperimentsFactory;
 import experiments.Experiment;
 import experiments.ExperimentEvent;
 import ga.GAEvent;
@@ -11,9 +12,6 @@ import ga.geneticOperators.*;
 import ga.selectionMethods.RouletteWheel;
 import ga.selectionMethods.SelectionMethod;
 import ga.selectionMethods.Tournament;
-import knapsack.Knapsack;
-import knapsack.KnapsackExperimentsFactory;
-import knapsack.KnapsackIndividual;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -22,6 +20,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,13 +34,10 @@ import java.util.List;
 public class MainFrame extends JFrame implements GAListener {
 
     private static final long serialVersionUID = 1L;
-    private Knapsack knapsack;
-    private OptArea optArea;
-    private GeneticAlgorithm<KnapsackIndividual, Knapsack> ga;
+    private OptArea optArea; //ex knapsack;
     private GeneticAlgorithm<OptAreaIndividual, OptArea> gat;
-    private KnapsackExperimentsFactory experimentsFactory;
+    private OptExperimentsFactory experimentsFactory;
     private PanelTextArea problemPanel;
-    //PanelTextArea bestIndividualPanel;
     PanelGrid bestIndividualGrid;
     private PanelParameters panelParameters = new PanelParameters();
     private JButton buttonDataSet = new JButton("Data set");
@@ -116,10 +112,7 @@ public class MainFrame extends JFrame implements GAListener {
 
         //Center panel       
         problemPanel = new PanelTextArea("Problem data: ", 20, 40);
-        //bestIndividualPanel = new PanelTextArea("Best solution: ", 20, 40);
-
         bestIndividualGrid = new PanelGrid("Best solution: ", new int[1][1]);
-
         centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(problemPanel, java.awt.BorderLayout.WEST);
         //Add grid
@@ -179,8 +172,8 @@ public class MainFrame extends JFrame implements GAListener {
                 return;
             }
 
-            //bestIndividualPanel.textArea.setText("");
-           // bestIndividualGrid = new PanelGrid("Best solution: ",5, 10);
+            //reset bestIndividualGrid grid and info. panel
+            clearBestIndividualGrid();
             seriesBestIndividual.clear();
             seriesAverage.clear();
 
@@ -195,9 +188,9 @@ public class MainFrame extends JFrame implements GAListener {
                     panelParameters.getMutationMethod(),
                     new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
 
-            System.out.println("Prob of 1s: " + optArea.getProb1s());
+            /*System.out.println("Prob of 1s: " + optArea.getProb1s());
             System.out.println("Fitness type: " + optArea.getFitnessType());
-            System.out.println(gat);
+            System.out.println(gat);*/
 
             gat.addGAListener(this);
 
@@ -226,81 +219,9 @@ public class MainFrame extends JFrame implements GAListener {
             JOptionPane.showMessageDialog(this, "Wrong parameters!", "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-//    public void jButtonRun_actionPerformed(ActionEvent e) {
-//        try {
-//            if (knapsack == null) {
-//                JOptionPane.showMessageDialog(this, "You must first choose a problem", "Error!", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//
-//            bestIndividualPanel.textArea.setText("");
-//            seriesBestIndividual.clear();
-//            seriesAverage.clear();
-//
-//            knapsack.setProb1s(Double.parseDouble(panelParameters.jTextFieldProb1s.getText()));
-//            knapsack.setFitnessType(panelParameters.jComboBoxFitnessTypes.getSelectedIndex());
-//
-//            ga = new GeneticAlgorithm<KnapsackIndividual, Knapsack>(
-//                    Integer.parseInt(panelParameters.jTextFieldN.getText()),
-//                    Integer.parseInt(panelParameters.jTextFieldGenerations.getText()),
-                   //panelParameters.getSelectionMethod(),
-//                    panelParameters.getRecombinationMethod(),
-//                    panelParameters.getMutationMethod(),
-//                    new Random(Integer.parseInt(panelParameters.jTextFieldSeed.getText())));
-//
-//            System.out.println("Prob of 1s: " + knapsack.getProb1s());
-//            System.out.println("Fitness type: " + knapsack.getFitnessType());
-//            System.out.println(ga);
-//
-//            ga.addGAListener(this);
-//
-//            manageButtons(false, false, true, false, false);
-//
-//            worker = new SwingWorker<Void, Void>() {
-//                public Void doInBackground() {
-//                    try {
-//
-//                        ga.run(knapsack);
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace(System.err);
-//                    }
-//                    return null;
-//                }
-//
-//                @Override
-//                public void done() {
-//                    manageButtons(true, true, false, true, experimentsFactory != null);
-//                }
-//            };
-//
-//            worker.execute();
-//
-//        } catch (NumberFormatException e1) {
-//            JOptionPane.showMessageDialog(this, "Wrong parameters!", "Error!", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
 
-    //##################
     public void generationEnded(GAEvent e) {
         GeneticAlgorithm<OptAreaIndividual, OptArea> source = e.getSource();
-        //bestIndividualPanel.textArea.setText(source.getBestInRun().toString());
-
-       /* if(source.getGeneration()==gat.getMaxGenerations()) {
-            centerPanel.remove(bestIndividualGrid);
-            System.out.println(Arrays.deepToString(gat.getBestInRun().getTela()));
-            bestIndividualGrid = new PanelGrid("Best solution: ", gat.getBestInRun().getTela());
-            //bestIndividualGrid.jTextArea.setText("Ola");
-            centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
-            bestIndividualGrid.repaint();
-            bestIndividualGrid.updateUI();
-        }*/
-
-        /*centerPanel.remove(bestIndividualGrid);
-        bestIndividualGrid = new PanelGrid("Best solution: ", new int[10][5]);
-        centerPanel.add(bestIndividualGrid);*/
-
         seriesBestIndividual.add(source.getGeneration(), source.getBestInRun().getFitness());
         seriesAverage.add(source.getGeneration(), source.getAverageFitness());
         if (worker.isCancelled()) {
@@ -308,16 +229,18 @@ public class MainFrame extends JFrame implements GAListener {
         }
     }
 
+    public void clearBestIndividualGrid(){
+        centerPanel.remove(bestIndividualGrid);
+        bestIndividualGrid = new PanelGrid("Best solution: ", new int[1][1]);
+        centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
+        bestIndividualGrid.repaint();
+        bestIndividualGrid.updateUI();
+    }
+
     public void runEnded(GAEvent e) {
         centerPanel.remove(bestIndividualGrid);
-        System.out.println(Arrays.deepToString(gat.getBestInRun().getTela()));
         bestIndividualGrid = new PanelGrid("Best solution: ", gat.getBestInRun().getTela());
-        bestIndividualGrid.jTextArea.setText("" +
-                "Fitness: "+gat.getBestInRun().getFitness()+"\t Overlap: "+gat.getBestInRun().getSobreposicao()+"\n" +
-                "Area: "+gat.getBestInRun().getArea()+"\t OutOfBounds: "+gat.getBestInRun().getOutOfBounds()+"\n" +
-                "Effective Area: "+(gat.getBestInRun().getArea()-gat.getBestInRun().getDesperdicio())+"\n" +
-                "Waste: "+gat.getBestInRun().getDesperdicio()+"\n" +
-                "Cut Energy: "+gat.getBestInRun().getEnergiaCorte());
+        bestIndividualGrid.jTextArea.setText(gat.getBestInRun().toString());
         centerPanel.add(bestIndividualGrid, java.awt.BorderLayout.CENTER);
         bestIndividualGrid.repaint();
         bestIndividualGrid.updateUI();
@@ -329,12 +252,16 @@ public class MainFrame extends JFrame implements GAListener {
 
     public void buttonExperiments_actionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser(new java.io.File("."));
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("Text Files (*.txt)", "txt"));
+       // fc.setAcceptAllFileFilterUsed(true);
         int returnVal = fc.showOpenDialog(this);
 
         try {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                experimentsFactory = new KnapsackExperimentsFactory(fc.getSelectedFile());
-                manageButtons(true, knapsack != null, false, true, true);
+                experimentsFactory = new OptExperimentsFactory(fc.getSelectedFile());
+                manageButtons(true, optArea != null, false, true, true);
+                //System.out.println(experimentsFactory.buildExperiment().toString());
             }
         } catch (IOException e1) {
             e1.printStackTrace(System.err);
@@ -363,13 +290,14 @@ public class MainFrame extends JFrame implements GAListener {
                     }
                 } catch (Exception e) {
                     e.printStackTrace(System.err);
+                    //JOptionPane.showMessageDialog(null, "Enable to find the dataset especified in the experiments config file!", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
                 return null;
             }
 
             @Override
             public void done() {
-                manageButtons(true, knapsack != null, false, true, false);
+                manageButtons(true, optArea != null, false, true, false);
                 textFieldExperimentsStatus.setText("Finished");
             }
         };
@@ -377,6 +305,7 @@ public class MainFrame extends JFrame implements GAListener {
     }
 
     public void experimentEnded(ExperimentEvent e) {
+
     }
 
     private void manageButtons(
@@ -505,7 +434,6 @@ class PanelGrid extends JPanel{
         setLayout(new BorderLayout());
         add(new JLabel(title), java.awt.BorderLayout.NORTH);
 
-        System.out.println(matrix.length+"|"+matrix[0].length);
         gridLayout = new GridLayout(matrix.length, matrix[0].length, 2, 2);
 
         gridPanel = new JPanel(gridLayout);

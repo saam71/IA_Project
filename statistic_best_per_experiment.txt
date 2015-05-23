@@ -1,21 +1,205 @@
 
 
-Population size:100	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0
+###############Experiment Begin##################
+Date:23-05-2015 01:59:18	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
 
-Weight: 15.0 (limit: 15.0)
-Value: 1149.0
-fitness: 1149.0
-Items: 
-19	5.0	381.0
-28	5.0	386.0
-29	5.0	382.0
+###############Experiment Begin##################
+Date:23-05-2015 01:59:18	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################
 
-Population size:100	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Binary mutation (0.001)	Prob1s:0.05	Fitness type:0
+###############Experiment Begin##################
+Date:23-05-2015 02:01:20	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
 
-Weight: 15.0 (limit: 15.0)
-Value: 1149.0
-fitness: 1149.0
-Items: 
-19	5.0	381.0
-28	5.0	386.0
-29	5.0	382.0
+###############Experiment Begin##################
+Date:23-05-2015 02:01:20	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:02:29	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:02:31	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:04:18	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:04:19	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:40:02	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:40:03	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:41:39	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Roulette wheel	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 123.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 19
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|5 3 3 3 0 6 6 6 |
+|5 3 4 4 0 0 0 0 |
+|5 4 4 4 0 0 0 0 |
+|2 2 4 1 0 0 0 0 |
+|2 2 1 1 0 0 0 0 |
+###############Experiment End##################
+
+###############Experiment Begin##################
+Date:23-05-2015 02:41:40	File Name:./PiecesDataSets/testeD.txt	Population size:200	Max generations:100	Selection:Tournament(2)	Recombination:One cut recombination (0.7)	Mutation:Position mutation (0.001)	Prob1s:0.05	Fitness type:0
+Fitness value: 124.0
+Area: 20
+Effective Area: 20
+Waste: 0
+Cut Energy: 18
+Out Of Bounds: 0
+Overlap: 1
+Best Solution:
+|0 2 2 3 3 6 6 6 |
+|0 2 2 3 3 0 0 0 |
+|0 5 5 5 3 0 0 0 |
+|0 1 4 4 4 0 0 0 |
+|0 1 1 4 4 0 0 0 |
+###############Experiment End##################

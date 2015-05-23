@@ -12,8 +12,7 @@ public class Main {
     public Main() {
 		/*comm. test*/
 		MainFrame frame = new MainFrame();
-
-		frame.setSize(new java.awt.Dimension(1076, 690));
+        frame.setSize(new java.awt.Dimension(1076, 690));
 		// Center the window
 		frame.setLocationRelativeTo(null);
 

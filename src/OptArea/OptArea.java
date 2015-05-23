@@ -25,7 +25,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.altura = altura;
         this.largura = largura;
         maxSobreOout = computeMaxSobrOut();
-        System.out.println("largura " + largura + " altura " + altura );
+        //System.out.println("largura " + largura + " altura " + altura );
     }
     
     @Override
@@ -93,7 +93,6 @@ public class OptArea implements Problem <OptAreaIndividual>{
 
     public static OptArea buildOptArea(File file) throws IOException {
         java.util.Scanner f = new java.util.Scanner(file);
-
         int n = f.nextInt();
         int alturaTela = f.nextInt();
         int larguraTela = 0;

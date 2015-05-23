@@ -91,6 +91,5 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         }
         return true;
     }
-    
 }
 

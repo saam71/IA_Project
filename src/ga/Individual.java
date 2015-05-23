@@ -20,13 +20,12 @@ public abstract class Individual<P extends Problem, I extends Individual>{
     
     public abstract void swapGenes(I other, int g);    
 
-    public double getFitness() {
-        return fitness;
-    }
+    public double getFitness() {return fitness;}
 
     @Override
     public abstract I clone();
     
-    public abstract void printTela();
-  
+    public abstract String printTela();
+
+    public abstract String SecToString();
 }

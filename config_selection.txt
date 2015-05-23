@@ -1,6 +1,6 @@
-Runs: 50
+Runs: 10
 
-Population size: 100
+Population size: 200
 
 Max generations: 100
 
@@ -30,7 +30,7 @@ Fitness type: 0
 
 //--------------------------------
 
-Problem file: ./DataSets/DataSet1.txt
+Problem file: ./PiecesDataSets/testeD.txt
 
 //--------------------------------
 
