@@ -25,7 +25,6 @@ public class RouletteWheel <I extends Individual, P extends Problem<I>> extends 
         for (int i = 0; i < popSize; i++) {
             accumulated[i] /= fitnessSum;
         }
-
         for (int i = 0; i < popSize; i++) {
             result.addIndividual(roulette(original));
         }

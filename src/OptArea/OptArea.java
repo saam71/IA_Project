@@ -14,6 +14,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
     private double prob1s;
     private int fitnessType = SIMPLE_FITNESS;
     private double maxSobreOout;
+    private double maxPerimeter;
 
     public OptArea(Peca[] pecas, int altura, int largura, double prob1s) {
         if (pecas == null) {
@@ -25,6 +26,7 @@ public class OptArea implements Problem <OptAreaIndividual>{
         this.altura = altura;
         this.largura = largura;
         maxSobreOout = computeMaxSobrOut();
+        maxPerimeter = computeMaxPerimeter();
         System.out.println("largura " + largura + " altura " + altura );
     }
     
@@ -61,7 +63,9 @@ public class OptArea implements Problem <OptAreaIndividual>{
     public double getMaxSobrOut() {
         return maxSobreOout;
     }
-
+    public double getMaxPerimeter() {
+        return maxPerimeter;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -84,11 +88,44 @@ public class OptArea implements Problem <OptAreaIndividual>{
 
     private double computeMaxSobrOut() {
         double soma=0;
-        for(int x=0; x< pecas.length; x++){
-            soma += pecas[x].getAltura() * pecas[x].getLargura();
+        for (Peca peca : pecas) {
+            soma += peca.getAltura() * peca.getLargura();
         }
         
         return soma;
+    }
+    
+    private double computeMaxPerimeter() {
+        double total=0;
+        int[][] forma;
+        for (Peca peca : pecas) {
+            forma = peca.getForma(0);
+            
+            for(int x = 0; x <forma.length; x++){
+                if(forma[x][0] != 0){
+                    total += 1;
+                }
+        }
+            for(int y =0; y < forma[0].length; y++){
+                if(forma[0][y]!=0){
+                    total +=1;
+            }
+        }
+            
+            for(int x = 0; x < forma.length; x++){
+                for(int y= 0; y< forma[0].length; y++){
+                    if(!(x+1>= forma.length) && forma[x][y] != forma[x+1][y]){
+                        total++;
+                    }
+                    if(!(y +1 >=forma[0].length) && forma[x][y] != forma[x][y+1]){
+                        total++;
+                    }
+                }
+            }
+        }
+        
+        
+        return total;
     }
 
     public static OptArea buildOptArea(File file) throws IOException {
@@ -121,4 +158,8 @@ public class OptArea implements Problem <OptAreaIndividual>{
 
         return new OptArea(pecas, alturaTela, larguraTela/2, 0.5);
     }
+
+    
+
+    
 }

@@ -91,6 +91,16 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         }
         return true;
     }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getLargura() {
+        return largura;
+    }
+    
+    
     
 }
 

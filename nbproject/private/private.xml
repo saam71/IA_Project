@@ -4,15 +4,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/IPL/IA_Project/src/ga/selectionMethods/RouletteWheel.java</file>
             <file>file:/D:/IPL/IA_Project/src/ga/GeneticAlgorithm.java</file>
-            <file>file:/D:/IPL/IA_Project/src/ga/selectionMethods/Tournament.java</file>
-            <file>file:/D:/IPL/IA_Project/src/ga/Problem.java</file>
             <file>file:/D:/IPL/IA_Project/src/gui/MainFrame.java</file>
             <file>file:/D:/IPL/IA_Project/src/OptArea/OptAreaIndividual.java</file>
             <file>file:/D:/IPL/IA_Project/src/OptArea/OptArea.java</file>
             <file>file:/D:/IPL/IA_Project/src/OptArea/Peca.java</file>
-            <file>file:/D:/IPL/IA_Project/src/ga/Population.java</file>
             <file>file:/D:/IPL/IA_Project/src/ga/geneticOperators/PosMutation.java</file>
+            <file>file:/D:/IPL/IA_Project/src/ga/geneticOperators/RecombinationUniform.java</file>
             <file>file:/D:/IPL/IA_Project/src/ga/PosVectorIndividual.java</file>
         </group>
     </open-files>

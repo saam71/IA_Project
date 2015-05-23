@@ -34,7 +34,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         this.largura = largura;
         this.tela = new int[altura][largura];
         this.numPecas = size;
-        this.penalty = 5;
+        this.penalty = 10;
         
         /*
         System.out.println("genoma:");
@@ -151,12 +151,25 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
 
         //calculo da area desperdicada e da energia de corte
         this.energiaCorte = 0;
+         
+        //inicio do calculo da energia só contabiliza a fronteira inicial
+        for(int x = min[0]; x <max[0]; x++){
+            if(tela[x][min[1]] != 0){
+                energiaCorte += 1;
+            }
+        }
+        for(int y =min[1]; y < max[1]; y++){
+            if(tela[min[0]][y]!=0){
+                energiaCorte +=1;
+            }
+        }
+        
         for(int x = min[0]; x <max[0]; x++){
             for(int y =min[1]; y < max[1]; y++){
                 if(tela[x][y] ==0){
                     desperdicio +=1;
                 }
-                
+                //calculo de energia 
                 if(!(x+1>= tela.length) && tela[x][y] != tela[x+1][y]){
                     energiaCorte++;
                 }
@@ -165,7 +178,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                 }
             }
         }
-            
+        
         int areaEfetiva = area - desperdicio;
 
         /*########################################
@@ -192,7 +205,11 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         //fitness = 2*(((tela.length * tela[0].length)/area)*2 - 2*desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
         
 //        fitness = ((tela.length * tela[0].length)/areaEfetiva) + penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds)) - energiaCorte - desperdicio;
-        fitness = ((tela.length * tela[0].length)/areaEfetiva) + penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds))  -  energiaCorte - 2 *desperdicio;
+        if(areaEfetiva <=0 ){
+            areaEfetiva =1;
+        }
+        fitness = (3*((tela.length * tela[0].length)/areaEfetiva)+ 2*(problem.getMaxPerimeter()-energiaCorte) 
+                + this.penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds)))/100;
 
         //fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - 2 * desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
       
