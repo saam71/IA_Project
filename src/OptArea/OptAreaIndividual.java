@@ -200,7 +200,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Fitness value: " + this.fitness + "\t\t Overlap: " + this.sobreposicao + "\n" +
+        sb.append("Fitness value: " + this.fitness + "\t Overlap: " + this.sobreposicao + "\n" +
                 "Area: " + this.area + "\t\t Out Of Bounds: " + this.outOfBounds + "\n" +
                 "Effective Area: " + (this.area - this.desperdicio) + "\n" +
                 "Waste: " + this.desperdicio + "\n" +
