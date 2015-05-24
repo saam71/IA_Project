@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -27,8 +27,8 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
        for(int g = 0; g < genome.length; g+=3){
             int limit = 0;
             do{
-                genome[g] = GeneticAlgorithm.random.nextInt(altura);
-                genome[g+1]= GeneticAlgorithm.random.nextInt(largura);
+                genome[g] = GeneticAlgorithm.random.nextInt(this.altura);
+                genome[g+1]= GeneticAlgorithm.random.nextInt(this.largura);
                 genome[g+2] = GeneticAlgorithm.random.nextInt(4);
                 //System.out.println("ciclo inf g=" + g);
                 limit++;
@@ -37,12 +37,15 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         }
     }
     
-    public PosVectorIndividual(PosVectorIndividual<P> original) {
+    public PosVectorIndividual(PosVectorIndividual<P> original, int altura, int largura) {
         super(original);
+        this.altura = altura;
+        this.largura = largura;
         this.genome = new int[original.genome.length];
         System.arraycopy(original.genome, 0, genome, 0, genome.length);
     }
     
+    @Override
     public int getNumGenes() {
         return genome.length;
     }
@@ -55,6 +58,7 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
         genome[g] = alel;
     }
 
+    @Override
     public void swapGenes(PosVectorIndividual other, int g) {
         int aux0 = genome[g];
         int aux1 = genome[g+1];
@@ -93,14 +97,11 @@ public abstract class PosVectorIndividual <P extends Problem> extends Individual
     }
 
     public int getAltura() {
-        return altura;
+        return this.altura;
     }
 
     public int getLargura() {
-        return largura;
+        return this.largura;
     }
-    
-    
-   
 }
 

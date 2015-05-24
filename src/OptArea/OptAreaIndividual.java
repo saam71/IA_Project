@@ -44,7 +44,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     }
 
     public OptAreaIndividual(OptAreaIndividual original) {
-        super(original);
+        super(original, original.altura, original.largura);
         this.altura = original.altura;
         this.largura = original.largura;
         this.tela = new int[altura][largura];
@@ -66,14 +66,12 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         this.outOfBounds = 0;
         this.area = 0;
         this.desperdicio = 0;
-        
         //desenho da tela com as pecas e contagem das sobrposicoes e out of bounds
         for (int i = 0; i < numPecas; i ++){
             //Peca peca = problem.getPeca(i);
             int posX = getGene(i*3);
             int posY = getGene(i*3+1);
             int[][] forma =  problem.getPeca(i).getForma(getGene(i*3+2));
-            
             for(int x=0; x < forma.length; x++){
                 for(int y= 0; y < forma[0].length; y++){
                     if(posX+x > tela.length-1 || posY+y > tela[0].length-1 || posX+x< 0 || posY+y < 0){
@@ -86,17 +84,12 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                 }
             }
         }
-        
-        //System.out.println(Arrays.deepToString(tela));
-        
         //calcula o X min 
         for(int c=0; c < tela.length; c++){
             int somaX = 0;
-            
             for(int y = 0; y<tela[0].length; y++){
                 somaX += tela[c][y];
             }
-            
             if(somaX!=0){
                 min[0]= c;
                 break;
@@ -105,11 +98,9 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         //calcula o Y min 
         for(int c=0; c < tela[0].length; c++){
             int somaY = 0;
-            
             for(int x = 0; x<tela.length; x++){
                 somaY += tela[x][c];
             }
-            
             if(somaY!=0){
                 min[1]= c;
                 break;
@@ -118,11 +109,9 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         //calcula o X max 
         for(int c=tela.length-1; c > 0; c--){
             int somaX = 0;
-            
             for(int y = tela[0].length-1; y>0; y--){
                 somaX += tela[c][y];
-            }
-            
+            } 
             if(somaX!=0){
                 max[0]= c+1;
                 break;
@@ -131,25 +120,18 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
         //calcula o Y max
         for(int c=tela[0].length-1; c > 0; c--){
             int somaY = 0;
-            
             for(int x = tela.length-1; x > 0; x--){
                 somaY += tela[x][c];
             }
-            
             if(somaY!=0){
                 max[1]= c +1;
                 break;
             }
         }
-            
         //calculo da area de tela utilizada
         area = (max[0] - min[0])*(max[1] - min[1]);
-        //System.out.println("minx=" + min[0] + " maxX=" + max[0] + " minY=" + min[1] + " maxY=" + max[1] );
-
-
         //calculo da area desperdicada e da energia de corte
         this.energiaCorte = 0;
-         
         //inicio do calculo da energia só contabiliza a fronteira inicial
         for(int x = min[0]; x <max[0]; x++){
             if(tela[x][min[1]] != 0){
@@ -161,7 +143,7 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                 energiaCorte +=1;
             }
         }
-        
+        //calculo de despedicio e da energia de corte restante
         for(int x = min[0]; x <max[0]; x++){
             for(int y =min[1]; y < max[1]; y++){
                 if(tela[x][y] ==0){
@@ -176,19 +158,13 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                 }
             }
         }
-        
         int areaEfetiva = area - desperdicio;
 
         /*########################################
         ##### AREA PARA CALCULO DE FITNESSES######
         ##########################################*/
-    
-        
-
         // FORMULA MUITO ARCAICA
         //fitness = ((tela.length * tela[0].length)/areaEfetiva) - 2*(sobreposicao+outOfBounds);
-        
-        
         //fitness = ((tela.length * tela[0].length)*2/areaEfetiva)-  penalty*(sobreposicao+outOfBounds);
         
         //fitness = 100+(((tela.length * tela[0].length)/area)- desperdicio - 5*(sobreposicao+outOfBounds));
@@ -210,15 +186,9 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
                 + this.penalty*(problem.getMaxSobrOut()- (sobreposicao + outOfBounds)))/100;
 
         //fitness = 100+(((tela.length * tela[0].length)/areaEfetiva) - 2 * desperdicio - energiaCorte - penalty*(sobreposicao+outOfBounds));
-      
-        
-
-
         /*########################################
         ##### AREA PARA CALCULO DE FITNESSES######
-        ##########################################*/
-
-        
+        ##########################################*/        
         return fitness;
     }
 
@@ -281,4 +251,5 @@ public class OptAreaIndividual extends PosVectorIndividual <OptArea>{
     public int[][] getTela() {
         return this.tela;
     }
+    
 }
